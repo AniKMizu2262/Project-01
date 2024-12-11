@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\nvkKhoaController;
+use App\Http\Controllers\nvkMonHocController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,11 @@ Route::get('/nvkKhoa/edit/{nvkMaKH}',[nvkKhoaController::class,'edit'])->name('n
 Route::post('/nvkKhoa/edit/',[nvkKhoaController::class,'editSumbit'])->name('nvkKhoa.editSumbit');
 
 // Khoa - delete 
-Route::get('/nvkKhoa/delete/{nvkMaKH}',[nvkKhoaController::class,'detail'])->name('nvkKhoa.detail');
+Route::get('/nvkKhoa/delete/{nvkMaKH}',[nvkKhoaController::class,'delete'])->name('nvkKhoa.delete');
+
+// Khoa - edit
+Route::get('/nvkKhoa/insert/{nvkMaKH?}',[nvkKhoaController::class,'insert'])->name('nvkKhoa.insert');
+Route::post('/nvkKhoa/insert', [nvkKhoaController::class, 'insertSumbit'])->name('nvkKhoa.insertSumbit');
+
+// Mon Hoc 
+Route::get('/nvkMonHoc',[nvkMonHocController::class,'nvkList'])->name('nvkKhoa.nvkList');
