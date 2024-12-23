@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\nvkLoaiSanPhamController;
 use App\Http\Controllers\nvkQuanTriController;
+use App\Http\Controllers\nvkSanPhamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,3 +39,12 @@ Route::post('/nvkAdmin/nvkLoaiSanPham/{id}', [nvkLoaiSanPhamController::class, '
 
 // Route xóa
 Route::delete('/nvkAdmin/nvkLoaiSanPham/{id}', [nvkLoaiSanPhamController::class, 'nvkDestroy'])->name('nvkAdmin.nvkLoaiSanPham.Destroy');
+
+// Danh sách sản phẩm 
+Route::get('/nvkAdmin/nvkSanPham/List', [nvkSanPhamController::class, 'nvkList'])->name('nvkAdmin.nvkSanPham.List');
+
+// Route để hiển thị form thêm sản phẩm
+Route::get('/nvkAdmin/nvkSanPham/Create', [nvkSanPhamController::class, 'nvkSanPhamCreate'])->name('nvkAdmin.nvkSanPham.Create');
+// Route để lưu sản phẩm mới vào cơ sở dữ liệu
+Route::post('/nvkAdmin/nvkSanPham/Store', [nvkSanPhamController::class, 'nvkSanPhamStore'])->name('nvkAdmin.nvkSanPham.nvkStore');
+

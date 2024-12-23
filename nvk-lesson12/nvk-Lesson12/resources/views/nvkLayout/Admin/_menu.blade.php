@@ -8,6 +8,11 @@
         Loại sản phẩm
       </a>
     </li>
-    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">
+      <a href="nvkAdmin/nvkSanPham">
+        Sản phẩm
+      </a>
+      
+    </li>
     <li class="list-group-item">And a fifth one</li>
   </ul>
