@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Danh sách sản phẩm</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-</head>
-<body>
+@extends('nvkLayout.Admin.nvkMaster')
+
+@section('title', 'Danh sách sản phẩm')
+
+@section('content-body')
     <section class="container my-1 border p-2">
         <div class="card">
             <div class="card-header">
                 <h1>Danh sách sản phẩm</h1>
             </div>
         </div>
-        
+
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
@@ -34,7 +29,7 @@
                     @php
                         $num = 0;
                     @endphp
-                    @forelse ( $nvkSanPham as $item)
+                    @forelse ($nvkSanPham as $item)
                     @php
                         $num++;
                     @endphp
@@ -65,8 +60,7 @@
             </table>
         </div>
         <div class="card-footer">
-            <a href="nvkAdmin.nvkSanPham.Create">Add</a>
+            <a href="{{ route('nvkAdmin.nvkSanPham.Create') }}" class="btn btn-primary">Thêm mới</a>
         </div>
     </section>
-</body>
-</html>
+@endsection

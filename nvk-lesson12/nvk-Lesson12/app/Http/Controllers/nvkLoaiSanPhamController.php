@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class nvkLoaiSanPhamController extends Controller
 {
-    // Admin : CRUD
+    // Admin: CRUD
 
     // List
     public function nvkList()
@@ -24,55 +24,51 @@ class nvkLoaiSanPhamController extends Controller
 
     public function nvkStore(Request $request)
     {
-        // Xác thực dữ liệu đầu vào
         $validated = $request->validate([
-            'nvkMaLoai' => 'required|unique:nvkLoaiSanPham,nvkMaLoai|max:255',
+            'nvkMaLoai' => 'required|unique:nvk_loai_san_phams,nvkMaLoai|max:255',
             'nvkTenLoai' => 'required|max:255',
-            'nvkTrangThai' => 'required|in:0,1', // đảm bảo giá trị đúng cho trạng thái
+            'nvkTrangThai' => 'required|in:0,1',
         ]);
-    
-        // Lưu vào cơ sở dữ liệu
-        nvkLoaiSanPham::create([
-            'nvkMaLoai' => $validated['nvkMaLoai'],
-            'nvkTenLoai' => $validated['nvkTenLoai'],
-            'nvkTrangThai' => $validated['nvkTrangThai'],
-        ]);
+
+        nvkLoaiSanPham::create($validated);
+
         return redirect()->route('nvkAdmin.nvkLoaiSanPham.List')->with('success', 'Thêm mới loại sản phẩm thành công');
     }
-    // Xem chi tiết
-public function nvkShow($id)
-{
-    $item = nvkLoaiSanPham::where('nvkMaLoai', $id)->first(); 
-    return view('nvkAdmin.nvkLoaiSanPham.Show', ['item' => $item]); 
+
+    // Show
+    public function nvkShow($id)
+    {
+        $item = nvkLoaiSanPham::findOrFail($id);
+        return view('nvkAdmin.nvkLoaiSanPham.Show', ['item' => $item]);
+    }
+
+    // Edit
+    public function nvkEdit($id)
+    {
+        $item = nvkLoaiSanPham::findOrFail($id);
+        return view('nvkAdmin.nvkLoaiSanPham.Edit', compact('item'));
+    }
+
+    // Update
+    public function nvkUpdate(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nvkTenLoai' => 'required|max:255',
+            'nvkTrangThai' => 'required|in:0,1',
+        ]);
+
+        $item = nvkLoaiSanPham::findOrFail($id);
+        $item->update($validated);
+
+        return redirect()->route('nvkAdmin.nvkLoaiSanPham.List')->with('success', 'Cập nhật thành công!');
+    }
+
+    // Delete
+    public function nvkDestroy($id)
+    {
+        $item = nvkLoaiSanPham::findOrFail($id);
+        $item->delete();
+
+        return view('nvkAdmin.nvkLoaiSanPham.List');
+    }
 }
-
-// Sửa
-public function nvkEdit($id)
-{
-    $item = nvkLoaiSanPham::where('nvkMaLoai', $id)->first(); 
-    return view('nvkAdmin.nvkLoaiSanPham.Edit', compact('item')); 
-}
-
-// Cập nhật
-public function nvkUpdate(Request $request, $id)
-{
-    $request->validate([
-        'nvkTenLoai' => 'required|max:255',
-        'nvkTrangThai' => 'required|in:0,1',
-    ]);
-
-    $data = $request -> only('nvkTenLoai', 'nvkTrangThai');
-
-    nvkLoaiSanPham::where('nvkMaLoai', $id)->update($data); 
-
-    return redirect()->route('nvkAdmin.nvkLoaiSanPham.List')->with('success', 'Cập nhật thành công!');
-}
-
-// Xóa
-public function nvkDestroy($id)
-{
-    $item = nvkLoaiSanPham::where('nvkMaLoai', $id)->delete();
-    return redirect()->route('nvkAdmin.nvkLoaiSanPham.List')->with('success', 'Xóa thành công!');
-}
-
-}    
