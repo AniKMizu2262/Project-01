@@ -28,10 +28,15 @@
                             <td>{{$item->nvkTenLoai}}</td>
                             <td>{{ $item->nvkTrangThai == 1 ? 'Hoạt động' : 'Không hoạt động' }}</td>
                             <td>
-                                <a href="#" class="btn btn-primary">Xem</a>
-                                <a href="#" class="btn btn-warning">Sửa</a>
-                                <a href="#" class="btn btn-danger">Xóa</a>
+                                <a href="{{ route('nvkAdmin.nvkLoaiSanPham.Show', ['id' => $item->nvkMaLoai]) }}" class="btn btn-primary">Xem</a>
+                                <a href="{{ route('nvkAdmin.nvkLoaiSanPham.Edit', ['id' => $item->nvkMaLoai]) }}" class="btn btn-warning">Sửa</a>
+                                <form action="{{ route('nvkAdmin.nvkLoaiSanPham.Destroy', $item->nvkMaLoai) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</button>
+                                </form>
                             </td>
+                            
                         </tr>
                     @empty
                         <tr>
